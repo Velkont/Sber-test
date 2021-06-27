@@ -7,7 +7,7 @@ import base64
 import logging
 
 logging.basicConfig(format='%(levelname)s:%(message)s', level=logging.DEBUG)
-
+filename = 'testData.xlsx'
 
 app = flask.Flask(__name__)
 app.config["DEBUG"] = True
@@ -15,7 +15,7 @@ app.config["DEBUG"] = True
 
 @app.route('/import/xlsx', methods=['GET'])
 def import_from_xlsx():
-    df = pd.read_excel('testData.xlsx')
+    df = pd.read_excel(filename)
     df['Rep_dt'] = pd.to_datetime(pd.to_datetime(df['Rep_dt']).dt.strftime('%Y-%m-%d'))
     con = sqlite3.connect('database.db')
     cur = con.cursor()
